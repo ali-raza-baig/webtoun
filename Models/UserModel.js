@@ -24,6 +24,29 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
+        // activePlan: [
+        //     {
+        //         planId: {
+        //             type: mongoose.ObjectId,
+        //             ref: 'Plan',
+        //             required: true,
+        //         },
+        //         status: {
+        //             type: String,
+        //             enum: ['active', 'inactive', 'deleted', 'completed'],
+        //             default: 'active'
+        //         },
+
+        //         startDate: {
+        //             type: Date,
+        //             default: Date.now,
+        //         },
+        //         endDate: {
+        //             type: Date,
+        //             required: true,
+        //         }
+        //     }
+        // ],
         resetPasswordToken: String,
         resetPasswordExpiresAt: Date,
     },

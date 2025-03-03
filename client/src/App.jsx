@@ -15,12 +15,20 @@ import PrivateRoute from './Components/Routes/PrivateRoute'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import Dashboard from './Pages/User/Dashboard'
+import DashboardAdmin from './Pages/Admin/DashoardAdmin'
+import AdminRoute from './Components/Routes/AdminRoute'
+import AddServices from './Pages/Admin/AddServices'
+import Plans from './Pages/Admin/Plans'
+import SubscriptionPage from './Pages/Admin/SubscriptionPage'
+import PageNotFound from './Pages/PageNotFound'
+import UserPlans from './Pages/User/UserPlans'
+import AllPlans from './Pages/User/AllPlans'
 
 const App = () => {
 
   const { token } = useSelector((state) => state.auth)
   useEffect(() => {
-    axios.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : '';
+    axios.defaults.headers.common["Authorization"] = token ? token : '';
   }, [token]);
   return (
     <>
@@ -29,9 +37,19 @@ const App = () => {
         <Route path='/services' element={<ServicesPage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='contact' element={<ContactPage />} />
-
+        {/* User Routes */}
         <Route path='/dashboard' element={<PrivateRoute />}>
           <Route path='user' element={<Dashboard />} />
+          <Route path='user/plans' element={<UserPlans />} />
+          <Route path='user/avaliablePlan' element={<AllPlans />} />
+        </Route>
+
+        {/* Admin Routes */}
+        <Route path='/dashboard' element={<AdminRoute />}>
+          <Route path='admin' element={<DashboardAdmin />} />
+          <Route path='admin/services' element={<AddServices />} />
+          <Route path='admin/plan' element={<Plans />} />
+          <Route path='admin/subscription' element={<SubscriptionPage />} />
         </Route>
 
         {/* Auth Routes */}
@@ -39,6 +57,7 @@ const App = () => {
         <Route path='/signup' element={<SignupPage />} />
         <Route path='/reset-password/:token' element={<ResetPassword />} />
         <Route path='/forget-password' element={<ForgetPassword />} />
+        <Route path='*' element={<PageNotFound />} />
       </Routes>
     </>
   )
